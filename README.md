@@ -1,8 +1,5 @@
-### standalone-pub-server
+A sample command-line application with an entrypoint in `bin/`, library code
+in `lib/`, and example unit test in `test/`.
 
-[![CI](https://github.com/makuzaverite/standalone-pub-server/actions/workflows/ci.yml/badge.svg)](https://github.com/makuzaverite/standalone-pub-server/actions/workflows/ci.yml)
-
-
-### Licence
-
-This project is under [MIT](licnece) Licence
+Created from templates made available by Stagehand under a BSD-style
+[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
