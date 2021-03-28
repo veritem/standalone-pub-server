@@ -2,13 +2,15 @@ import 'dart:io';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
+
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
-import 'package:standalone_pub_server/standalone_pub_server.dart'
-    as standalone_pub_server;
+import 'package:standalone_pub_server/standalone_pub_server.dart';
 
 void main(List<String> arguments) async {
   final app = Router();
+
+  app.mount('/users/', UserApi().router);
 
   app.get('/assets/<file|.*>', createStaticHandler('public'));
 
@@ -17,5 +19,10 @@ void main(List<String> arguments) async {
     return Response.ok(indexFile, headers: {'content-type': 'text/html'});
   });
 
-  await io.serve(app, 'localhost', 8080);
+  final handler = Pipeline()
+      .addMiddleware(logRequests())
+      .addMiddleware(handleCors())
+      .addHandler(app);
+
+  await io.serve(handler, 'localhost', 8080);
 }
